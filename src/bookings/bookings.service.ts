@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import StateService from 'src/state.service';
-import { Booking } from 'src/types/booking';
-import TimingPolicy from 'src/utils/TimingPolicy';
+import StateService from '../state.service';
+import { Booking } from '../types/booking';
+import TimingPolicy from '../utils/TimingPolicy';
 
 @Injectable()
 export class BookingsService {
