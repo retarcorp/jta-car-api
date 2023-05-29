@@ -76,7 +76,7 @@ Nest is [MIT licensed](LICENSE).
 ## To Do
 
 - Implement booking creation
-- Cover car service with tests
+- (+) Cover car service with tests
 - Cover booking service with tests
 - Write HTTP controllers
 - Cover HTTP controllers with tests
@@ -84,7 +84,7 @@ Nest is [MIT licensed](LICENSE).
 - Introduce Swagger and generate docs
 - Write and test Postman collection for endpoints
 - Loose coupling checks and design
-- Scheduling policy class for checking timings
+- (+) Scheduling policy class for checking timings
 - Docker container for backend
 - Create specific exception types
 - Test coverage check

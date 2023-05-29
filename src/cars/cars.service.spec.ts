@@ -1,9 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CarsService } from './cars.service';
 import StateService from '../state.service';
-import exp from 'constants';
 import { Car } from 'src/types/car';
-import { CarsModule } from './cars.module';
 
 describe('CarsService', () => {
   let service: CarsService;
@@ -118,8 +116,4 @@ describe('CarsService', () => {
       expect(updater).rejects.toThrow();
     })
   })
-
-
-
-
 });
