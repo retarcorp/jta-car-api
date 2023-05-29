@@ -75,18 +75,18 @@ Nest is [MIT licensed](LICENSE).
 
 ## To Do
 
-- Implement booking creation
+- (+) Implement booking creation
 - (+) Cover car service with tests
 - Cover booking service with tests
 - Write HTTP controllers
+- Write and test Postman collection for endpoints
 - Cover HTTP controllers with tests
 - Code refactoring, clear unused parts and modules
 - Introduce Swagger and generate docs
-- Write and test Postman collection for endpoints
 - Loose coupling checks and design
 - (+) Scheduling policy class for checking timings
 - Docker container for backend
 - Create specific exception types
 - Test coverage check
-- Pre-commit that checks test passing and coverage before pushing to main
+- (+) Pre-commit that checks test passing and coverage before pushing to main
 - Readme about how to use all the tools of the repo
