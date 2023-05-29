@@ -93,7 +93,6 @@ describe('CarsService', () => {
       expect(updatedCar.model).toBe(updateData.model);
 
       const cars = await service.fetchCars();
-      console.log(cars, updatedCar);
 
       const isCarInState = cars.some((c) => c.id === updatedCar.id && c.maker === updatedCar.maker && c.model === updatedCar.model)
 

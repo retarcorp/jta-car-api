@@ -15,8 +15,9 @@ export class BookingsService {
             const inInterval = (dp: Date) => (b.start.getTime() < dp.getTime()) && (b.end.getTime() > dp.getTime());
             const startIntersects = inInterval(start)
             const endIntersects = inInterval(end);
+            const isOverlap = (b.start.getTime() >= start.getTime()) && (b.end.getTime() <= end.getTime())
 
-            return startIntersects || endIntersects;
+            return startIntersects || endIntersects || isOverlap;
         });
     }
 
@@ -24,15 +25,21 @@ export class BookingsService {
         try {
             TimingPolicy.validate(start, end)
         } catch (e) {
-            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+            throw e;
         }
 
         const cars = this.stateService.getState().cars;
-        const allBookings = this.stateService.getState().bookings;
+        const allBookings = this.stateService.getState().bookings.map(b => ({
+            car: b.car,
+            start: new Date(b.start),
+            end: new Date(b.end)
+        }));
 
         const freeCar = cars.find((c) => {
             const bookings = allBookings.filter(({ car }) => car.id === c.id)
-            return !this.hasIntersections(bookings, start, end);
+            const hasIntersections = this.hasIntersections(bookings, start, end);
+
+            return !hasIntersections;
         })
 
         if (!freeCar) {
