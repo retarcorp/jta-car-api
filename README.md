@@ -79,7 +79,7 @@ Nest is [MIT licensed](LICENSE).
 - (+) Cover car service with tests
 - (+) Cover booking service with tests
 - (+) Write HTTP controllers
-- Write and test Postman collection for endpoints
+- (+) Write and test Postman collection for endpoints
 - Cover HTTP controllers with tests
 - Code refactoring, clear unused parts and modules
 - Introduce Swagger and generate docs

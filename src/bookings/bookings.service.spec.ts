@@ -7,6 +7,8 @@ import TimingPolicy, { TimingPolicyException } from '../utils/TimingPolicy';
 describe('BookingsService', () => {
   let bookingService: BookingsService;
   let carService: CarsService;
+  let stateService: StateService;
+
   const MS_HOUR = 1000 * 60 * 60;
 
   beforeEach(async () => {
@@ -16,6 +18,7 @@ describe('BookingsService', () => {
 
     bookingService = module.get<BookingsService>(BookingsService);
     carService = module.get<CarsService>(CarsService);
+    stateService = module.get<StateService>(StateService);
   });
 
   it('should be defined', () => {
@@ -30,6 +33,11 @@ describe('BookingsService', () => {
   }
 
   describe('Booking usecases check', () => {
+
+    beforeEach(() => {
+      stateService.restoreDefaultState();
+    })
+
     it('Should not create booking when no cars available', () => {
       const [start, end] = getValidStartEnd();
       const booker = bookingService.createBooking(start, end);
