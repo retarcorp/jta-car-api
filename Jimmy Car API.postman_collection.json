@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "c8ddbd9e-2ab9-47b4-bdec-260b85251755",
+		"name": "Jimmy Car API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6243075"
+	},
+	"item": [
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Fetch Cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/cars",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Car",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"maker\": \"BMW\",\n    \"model\": \"X6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/cars",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Car",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"X7\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/cars/C0",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cars",
+								"C0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Car",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Create Booking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const validBookingStart = new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString();",
+									"const validBookingEnd = new Date(Date.now() + 6 * 60 * 60 * 1000).toISOString();",
+									"",
+									"pm.collectionVariables.set(\"validBookingStart\", validBookingStart);",
+									"pm.collectionVariables.set(\"validBookingEnd\", validBookingEnd);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"start\": \"{{validBookingStart}}\",\n    \"end\": \"{{validBookingEnd}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/bookings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Bookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bookings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "validBookingStart",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "validBookingEnd",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -40,24 +40,28 @@ export class CarsService {
 
         await this.stateService.mutate((o) => ({
             ...o,   // TODO need to remove binded bookings
-            cars: o.cars.filter(c => c.id !== id) 
+            cars: o.cars.filter(c => c.id !== id)
         }))
 
         return !this.stateService.getState().cars.some((c) => c.id === id);
     }
 
-    async updateCar(data: Partial<Car> & {id: string}): Promise<Car> {
+    async updateCar(data: Partial<Car> & { id: string }): Promise<Car> {
 
+        const updData = {
+            ...(data.maker ? { maker: data.maker } : {}),
+            ...(data.model ? { model: data.model } : {}),
+        }
         const stateCar = this.stateService.getState().cars.find((c) => c.id === data.id);
         if (!stateCar) {
             throw new Error('Car not found!');
         }
 
-        const newCar = { ...stateCar, ...data } as Car;
+        const newCar = { ...stateCar, ...updData } as Car;
 
         await this.stateService.mutate((o) => {
             const cars = ([...o.cars] as Car[])
-            cars.splice(o.cars.indexOf(stateCar), 1, newCar); 
+            cars.splice(o.cars.indexOf(stateCar), 1, newCar);
             return {
                 ...o,
                 cars
