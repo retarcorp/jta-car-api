@@ -19,12 +19,13 @@ export class CarsService {
             throw new Error('Insufficient data provided for creating car!')
         }
 
-        const cars = await this.fetchCars();
-        const id = `C${cars.length}`; // TODO can overlap existing bookings for removed cars
+        const number = this.stateService.getState().lastCarNumber;
+        const id = `C${number}`; // TODO can overlap existing bookings for removed cars
         const car = { id, maker: data.maker, model: data.model };
 
         await this.stateService.mutate((o) => ({
             ...o,
+            lastCarNumber: o.lastCarNumber + 1,
             cars: o.cars.concat([car])
         }))
         const stateCar = this.stateService.getState().cars.find((c) => c.id === car.id);
@@ -39,7 +40,8 @@ export class CarsService {
         }
 
         await this.stateService.mutate((o) => ({
-            ...o,   // TODO need to remove binded bookings
+            ...o,
+            bookings: o.bookings.filter(b => b.car.id !== id),
             cars: o.cars.filter(c => c.id !== id)
         }))
 

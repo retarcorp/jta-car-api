@@ -74,9 +74,17 @@ describe('CarsService', () => {
 
     })
 
-    it('Car removal is impossible if there are unfinished bookings for this car', () => {
-      // throw new Error('Not implemented!')
+    it('Car is not created with the id of a car that was deleted', async () => {
+      const creationData = { maker: 'BMW', model: 'X5' }
+      const createdCar = await service.addCar(creationData);
+      await service.deleteCar(createdCar.id);
+
+      const newlyCreatedCar = await service.addCar(createdCar);
+      expect(newlyCreatedCar.id).not.toBe(createdCar.id);
+
+
     })
+
 
   })
 

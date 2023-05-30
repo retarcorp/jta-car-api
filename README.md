@@ -84,7 +84,7 @@ Nest is [MIT licensed](LICENSE).
 - (+) Code refactoring, clear unused parts and modules
 - Add deletion logic for booking protection
 - Add id generation to not to overlap existing bookings
-- Introduce Swagger and generate docs
+- (+) Introduce Swagger and generate docs
 - Loose coupling checks and design
 - (+) Scheduling policy class for checking timings
 - Docker container for backend

@@ -4,6 +4,7 @@ class SharedStore {
     public state: any;
     private initialState = {
         cars: [],
+        lastCarNumber: 0,
         bookings: []
     }
 

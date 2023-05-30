@@ -71,8 +71,6 @@ describe('BookingsService', () => {
       expect(booking1.car.id).not.toBe(booking2.car.id);
       expect([car1.id, car2.id]).toContain(booking1.car.id)
       expect([car1.id, car2.id]).toContain(booking2.car.id)
-
-
     })
 
 
@@ -100,6 +98,16 @@ describe('BookingsService', () => {
 
       const booker = bookingService.createBooking(startPlus, endPlus);
       expect(booker).rejects.toThrow(BookingException);
+    })
+
+    it('Bookings must be removed when car is removed', async () => {
+      const car =  await carService.addCar({maker: 'BMW', model: 'X5'})
+      const [start, end] = getValidStartEnd();
+      const booking1 = await bookingService.createBooking(start, end);
+
+      await carService.deleteCar(car.id);
+      const bookings = await bookingService.getBookings();
+      expect(bookings.some(b => b.car.id === car.id)).toBeFalsy()
     })
   })
 
