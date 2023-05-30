@@ -21,4 +21,11 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
+
+  describe('Cars testing', () => {
+    it('GET /cars', () => {
+      
+    })
+  })
+
 });

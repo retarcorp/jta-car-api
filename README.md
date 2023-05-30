@@ -80,8 +80,10 @@ Nest is [MIT licensed](LICENSE).
 - (+) Cover booking service with tests
 - (+) Write HTTP controllers
 - (+) Write and test Postman collection for endpoints
-- Cover HTTP controllers with tests
-- Code refactoring, clear unused parts and modules
+- (+) Cover HTTP controllers with tests
+- (+) Code refactoring, clear unused parts and modules
+- Add deletion logic for booking protection
+- Add id generation to not to overlap existing bookings
 - Introduce Swagger and generate docs
 - Loose coupling checks and design
 - (+) Scheduling policy class for checking timings

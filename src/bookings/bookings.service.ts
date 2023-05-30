@@ -34,7 +34,7 @@ export class BookingsService {
             start: new Date(b.start),
             end: new Date(b.end)
         }));
-
+        
         const freeCar = cars.find((c) => {
             const bookings = allBookings.filter(({ car }) => car.id === c.id)
             const hasIntersections = this.hasIntersections(bookings, start, end);

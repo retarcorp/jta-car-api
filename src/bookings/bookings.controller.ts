@@ -1,6 +1,7 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { BookingException, BookingsService } from './bookings.service';
 import TimingPolicy, { TimingPolicyException } from '../utils/TimingPolicy';
+import { ApiNotFoundResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 
 @Controller('bookings')
 export class BookingsController {
@@ -9,6 +10,9 @@ export class BookingsController {
         private readonly bookingService: BookingsService
     ) { }
 
+    @ApiOkResponse({ description: 'Booking creates successfully, returns booking as a response.' })
+    @ApiNotFoundResponse({ description: 'Unable to create booking - possibility not found.' })
+    @ApiResponse({ status: HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE, description: 'Given timing range is not acceptable.' })
     @Post('/')
     async createBooking(
         @Body('start') startString: string,
@@ -31,6 +35,7 @@ export class BookingsController {
 
     }
 
+    @ApiOkResponse({ description: 'List of all bookings in internal memory.' })
     @Get('/')
     async fetchBookings() {
         return await this.bookingService.getBookings();
