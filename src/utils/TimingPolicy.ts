@@ -1,14 +1,13 @@
-class TimingPolicy {
-    allowedDurationHours: number = 2.0;
-    allowedStartPutOffHours: number = 24.0;
+const DEFAULT_ALLOWED_DURATION = 2.0;
+const DEFAULT_ALLOWED_PUTOFF_HOURS = 24.0;
 
-    constructor(duration?: number, putoff?: number) {
-        if (putoff) {
-            this.allowedStartPutOffHours = putoff;
-        }
-        if (duration) {
-            this.allowedDurationHours = duration;
-        }
+class TimingPolicy {
+    allowedDurationHours: number;
+    allowedStartPutOffHours: number;
+
+    constructor(duration: number = DEFAULT_ALLOWED_DURATION, putoff: number = DEFAULT_ALLOWED_PUTOFF_HOURS) {
+        this.allowedStartPutOffHours = putoff;
+        this.allowedDurationHours = duration;
     }
 
     validate(start: Date, end: Date): boolean {

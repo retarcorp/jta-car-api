@@ -20,11 +20,12 @@ export class CarsService {
             throw new Error('Insufficient data provided for creating car!')
         }
 
-        const number = this.storeService.getState().lastCarNumber;
-        const id = `C${number}`;
+        const newId = this.storeService.getState().lastCarNumber;
+        const id = `C${newId}`;
         const car = { id, maker: data.maker, model: data.model };
 
         await this.storeService.execMutation(MutationType.CREATE_CAR, car);
+
         const stateCar = this.storeService.getState().cars.find((c) => c.id === car.id);
         return stateCar;
 
@@ -37,21 +38,24 @@ export class CarsService {
         }
 
         await this.storeService.execMutation(MutationType.DELETE_CAR, id);
+
         return !this.storeService.getState().cars.some((c) => c.id === id);
     }
 
     async updateCar(data: Partial<Car> & { id: string }): Promise<Car> {
-
-        const updData = {
-            ...(data.maker ? { maker: data.maker } : {}),
-            ...(data.model ? { model: data.model } : {}),
-        }
+        
         const stateCar = this.storeService.getState().cars.find((c) => c.id === data.id);
         if (!stateCar) {
             throw new Error('Car not found!');
         }
 
+        const updData = {
+            ...(data.maker ? { maker: data.maker } : {}),
+            ...(data.model ? { model: data.model } : {}),
+        }
+
         await this.storeService.execMutation(MutationType.UPDATE_CAR, { id: data.id, data: updData})
+
         const newCar = this.storeService.getState().cars.find((c) => c.id === data.id);
         return newCar;
     }

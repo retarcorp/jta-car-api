@@ -3,6 +3,7 @@ import StateService from '../store/store.service';
 import { Booking } from '../types/booking';
 import TimingPolicy from '../utils/TimingPolicy';
 import { MutationType } from '../store/mutations';
+import areIntervalsIntersected from '../utils/areIntervalsIntersected';
 
 @Injectable()
 export class BookingsService {
@@ -12,14 +13,7 @@ export class BookingsService {
     ) { }
 
     private hasIntersections(bookings: Booking[], start: Date, end: Date) {
-        return bookings.some((b: Booking) => {
-            const inInterval = (dp: Date) => (b.start.getTime() < dp.getTime()) && (b.end.getTime() > dp.getTime());
-            const startIntersects = inInterval(start)
-            const endIntersects = inInterval(end);
-            const isOverlap = (b.start.getTime() >= start.getTime()) && (b.end.getTime() <= end.getTime())
-
-            return startIntersects || endIntersects || isOverlap;
-        });
+        return bookings.some((b: Booking) => areIntervalsIntersected(b.start, b.end, start, end));
     }
 
     async createBooking(start: Date, end: Date): Promise<Booking | null> {

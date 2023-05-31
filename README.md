@@ -1,31 +1,5 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
+# Car API
+Car API allows to manage cars list in internal memory and create bookings for cars according to timing policy
 ## Installation
 
 ```bash
@@ -58,37 +32,27 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Test coverage
+Test coverage is 94.5%. Entrypoint is not covered.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Swagger API
+Run application in dev mode and request /api endpoint to see and play with API
 
-## Stay in touch
+## Postman API
+Postman API collection attached to a repo with .postman_collection.json extension. Import the collection to play and test the API in Postman.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Docker
+Backend can be run in dev mode in a docker container described in docker-compose.yml here
+```bash
+docker compose up -d
+```
 
-## License
+## Pre-commit
+This repo automatically lauches tests before any commits. No commit is possible if tests didn't pass.
 
-Nest is [MIT licensed](LICENSE).
-
+## State management
+Internal memory storage is used in this project and covered by InternalStoreService class. However, store manager can be replaced with another provider that implements abstract StoreService.
 
 ## To Do
-
-- (+) Implement booking creation
-- (+) Cover car service with tests
-- (+) Cover booking service with tests
-- (+) Write HTTP controllers
-- (+) Write and test Postman collection for endpoints
-- (+) Cover HTTP controllers with tests
-- (+) Code refactoring, clear unused parts and modules
-- (+) Add deletion logic for booking protection
-- (+) Add id generation to not to overlap existing bookings
-- (+) Introduce Swagger and generate docs
-- (+) Scheduling policy class for checking timings
-- (+) Test coverage check
-- (+) Pre-commit that checks test passing and coverage before pushing to main
-- (+) Loose coupling checks and design
-- Docker container for backend
+- Add lint autofix
 - Create specific exception types
-- Readme about how to use all the tools of the repo
