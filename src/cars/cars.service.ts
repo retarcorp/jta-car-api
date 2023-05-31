@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Car } from '../types/car';
 import StoreService from '../store/store.service';
+import { MutationType } from '../store/mutations';
 
 @Injectable()
 export class CarsService {
@@ -23,11 +24,12 @@ export class CarsService {
         const id = `C${number}`; // TODO can overlap existing bookings for removed cars
         const car = { id, maker: data.maker, model: data.model };
 
-        await this.storeService.mutate((o) => ({
-            ...o,
-            lastCarNumber: o.lastCarNumber + 1,
-            cars: o.cars.concat([car])
-        }))
+        await this.storeService.execMutation(MutationType.CREATE_CAR, car);
+        // await this.storeService.mutate((o) => ({
+        //     ...o,
+        //     lastCarNumber: o.lastCarNumber + 1,
+        //     cars: o.cars.concat([car])
+        // }))
         const stateCar = this.storeService.getState().cars.find((c) => c.id === car.id);
         return stateCar;
 
@@ -61,6 +63,7 @@ export class CarsService {
 
         const newCar = { ...stateCar, ...updData } as Car;
 
+        // await this.storeService.mutate(Mutations.UPDATE_CAR, payload)
         await this.storeService.mutate((o) => {
             const cars = ([...o.cars] as Car[])
             cars.splice(o.cars.indexOf(stateCar), 1, newCar);

@@ -1,17 +1,27 @@
 import { Injectable } from "@nestjs/common";
-import StoreService from "../store.service";
+import StoreService, { IReducer } from "../store.service";
+import InternalStoreReducer from "./InternalStore.reducer";
+import { MutationType } from "../mutations";
 
 @Injectable()
 export class InternalStoreService extends StoreService {
     
     private store: SharedStore = null;
+    protected reducer: IReducer = null;
+
     constructor() {
         super();
+        this.reducer = new InternalStoreReducer();
         this.store = SharedStore.getInstance();
     }
 
     getState(): any {
         return JSON.parse(JSON.stringify({...this.store.state}));
+    }
+
+    async execMutation(type: MutationType, payload: any) {
+        const mutator = this.reducer.reduce(type, payload);
+        this.mutate(mutator);
     }
 
     async mutate(mutator: (oldState: any) => any) {

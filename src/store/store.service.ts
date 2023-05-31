@@ -1,7 +1,13 @@
+import { MutationType } from "./mutations";
+
 export default abstract class StoreService {
     abstract getState(): any;
+    abstract execMutation(type: MutationType, payload: any): Promise<any>
     abstract mutate(mutator: (any) => any): Promise<any>
     abstract restoreDefaultState(): void;
+    protected abstract reducer: IReducer;
 }
 
-export type Mutation = (oldState: any) => () => any;
+export interface IReducer {
+    reduce(type: MutationType, payload: any): (oldState: any) => any
+}
