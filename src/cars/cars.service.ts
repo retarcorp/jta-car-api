@@ -21,15 +21,10 @@ export class CarsService {
         }
 
         const number = this.storeService.getState().lastCarNumber;
-        const id = `C${number}`; // TODO can overlap existing bookings for removed cars
+        const id = `C${number}`;
         const car = { id, maker: data.maker, model: data.model };
 
         await this.storeService.execMutation(MutationType.CREATE_CAR, car);
-        // await this.storeService.mutate((o) => ({
-        //     ...o,
-        //     lastCarNumber: o.lastCarNumber + 1,
-        //     cars: o.cars.concat([car])
-        // }))
         const stateCar = this.storeService.getState().cars.find((c) => c.id === car.id);
         return stateCar;
 
@@ -41,12 +36,7 @@ export class CarsService {
             throw new Error('Car not found!');
         }
 
-        await this.storeService.mutate((o) => ({
-            ...o,
-            bookings: o.bookings.filter(b => b.car.id !== id),
-            cars: o.cars.filter(c => c.id !== id)
-        }))
-
+        await this.storeService.execMutation(MutationType.DELETE_CAR, id);
         return !this.storeService.getState().cars.some((c) => c.id === id);
     }
 
@@ -61,18 +51,8 @@ export class CarsService {
             throw new Error('Car not found!');
         }
 
-        const newCar = { ...stateCar, ...updData } as Car;
-
-        // await this.storeService.mutate(Mutations.UPDATE_CAR, payload)
-        await this.storeService.mutate((o) => {
-            const cars = ([...o.cars] as Car[])
-            cars.splice(o.cars.indexOf(stateCar), 1, newCar);
-            return {
-                ...o,
-                cars
-            }
-        })
-
+        await this.storeService.execMutation(MutationType.UPDATE_CAR, { id: data.id, data: updData})
+        const newCar = this.storeService.getState().cars.find((c) => c.id === data.id);
         return newCar;
     }
 }

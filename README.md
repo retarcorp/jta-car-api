@@ -88,7 +88,7 @@ Nest is [MIT licensed](LICENSE).
 - (+) Scheduling policy class for checking timings
 - (+) Test coverage check
 - (+) Pre-commit that checks test passing and coverage before pushing to main
-- Loose coupling checks and design
+- (+) Loose coupling checks and design
 - Docker container for backend
 - Create specific exception types
 - Readme about how to use all the tools of the repo

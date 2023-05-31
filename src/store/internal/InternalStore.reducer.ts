@@ -1,10 +1,11 @@
 import { MutationType } from "../mutations";
 import { IReducer } from "../store.service";
+import { createBooking } from "./booking.mutations";
 import { addCar, deleteCar, updateCar } from "./cars.mutations";
 
 export default class InternalStoreReducer implements IReducer {
 
-    reduce(type: MutationType, payload: any): (oldState: any) => any {
+    reduce(type: MutationType, payload: any): (oldState: any) => Promise<any> {
         switch (type) {
             case MutationType.CREATE_CAR:
                 return addCar(payload)
@@ -15,8 +16,11 @@ export default class InternalStoreReducer implements IReducer {
             case MutationType.UPDATE_CAR:
                 return updateCar(payload);
 
+            case MutationType.CREATE_BOOKING:
+                return createBooking(payload);
+
         }
 
-        return null;
+        throw new Error('Mutation type not found!');
     }
 }

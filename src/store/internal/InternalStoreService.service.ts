@@ -6,25 +6,25 @@ import { MutationType } from "../mutations";
 @Injectable()
 export class InternalStoreService extends StoreService {
     
-    private store: SharedStore = null;
+    private store: StoreSingletone = null;
     protected reducer: IReducer = null;
 
     constructor() {
         super();
         this.reducer = new InternalStoreReducer();
-        this.store = SharedStore.getInstance();
+        this.store = StoreSingletone.getInstance();
     }
 
     getState(): any {
         return JSON.parse(JSON.stringify({...this.store.state}));
     }
 
-    async execMutation(type: MutationType, payload: any) {
+    async execMutation(type: MutationType, payload: any): Promise<void> {
         const mutator = this.reducer.reduce(type, payload);
-        this.mutate(mutator);
+        return this.mutate(mutator);
     }
 
-    async mutate(mutator: (oldState: any) => any) {
+    async mutate(mutator: (oldState: any) => any): Promise<void> {
         this.store.state = await mutator(this.getState());
     }
 
@@ -33,7 +33,7 @@ export class InternalStoreService extends StoreService {
     }
 }
 
-class SharedStore {
+class StoreSingletone {
     public state: any;
     private initialState = {
         cars: [],
@@ -51,9 +51,9 @@ class SharedStore {
 
     private static self = null;
     public static getInstance() {
-        if (!SharedStore.self) {
-            SharedStore.self = new SharedStore();
+        if (!StoreSingletone.self) {
+            StoreSingletone.self = new StoreSingletone();
         }
-        return SharedStore.self;
+        return StoreSingletone.self;
     }
 }

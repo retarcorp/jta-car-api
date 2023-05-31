@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import StateService from '../store/store.service';
 import { Booking } from '../types/booking';
 import TimingPolicy from '../utils/TimingPolicy';
+import { MutationType } from '../store/mutations';
 
 @Injectable()
 export class BookingsService {
@@ -52,11 +53,7 @@ export class BookingsService {
             end
         }
 
-        await this.stateService.mutate((o) => ({
-            ...o,
-            bookings: o.bookings.concat([booking])
-        }));
-
+        await this.stateService.execMutation(MutationType.CREATE_BOOKING, booking);
         return booking;
     }
 
