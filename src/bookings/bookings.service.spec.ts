@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookingException, BookingsService } from './bookings.service';
-import StateService from '../state.service';
+import StateService from '../store/store.service';
 import { CarsService } from '../cars/cars.service';
 import TimingPolicy, { TimingPolicyException } from '../utils/TimingPolicy';
+import StoreModule from '../store/store.module';
 
 describe('BookingsService', () => {
   let bookingService: BookingsService;
@@ -13,7 +14,8 @@ describe('BookingsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [BookingsService, StateService, CarsService],
+      providers: [BookingsService, CarsService],
+      imports: [StoreModule]
     }).compile();
 
     bookingService = module.get<BookingsService>(BookingsService);

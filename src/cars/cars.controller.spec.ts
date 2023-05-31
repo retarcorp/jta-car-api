@@ -1,16 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CarsController } from './cars.controller';
 import { CarsService } from './cars.service';
-import StateService from '../state.service';
 import { HttpException } from '@nestjs/common';
+import StoreModule from '../store/store.module';
 
 describe('CarsController', () => {
   let controller: CarsController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [StoreModule],
       controllers: [CarsController],
-      providers: [CarsService, StateService]
+      providers: [CarsService]
     }).compile();
 
     controller = module.get<CarsController>(CarsController);

@@ -2,9 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BookingsController } from './bookings.controller';
 import { BookingsService } from './bookings.service';
 import { CarsService } from '../cars/cars.service';
-import StateService from '../state.service';
-import exp from 'constants';
 import { HttpException } from '@nestjs/common';
+import StoreModule from '../store/store.module';
 
 describe('BookingsController', () => {
   let controller: BookingsController;
@@ -13,7 +12,8 @@ describe('BookingsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [BookingsController],
-      providers: [BookingsService, CarsService, StateService]
+      imports: [StoreModule],
+      providers: [BookingsService, CarsService]
     }).compile();
 
     controller = module.get<BookingsController>(BookingsController);

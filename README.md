@@ -82,13 +82,13 @@ Nest is [MIT licensed](LICENSE).
 - (+) Write and test Postman collection for endpoints
 - (+) Cover HTTP controllers with tests
 - (+) Code refactoring, clear unused parts and modules
-- Add deletion logic for booking protection
-- Add id generation to not to overlap existing bookings
+- (+) Add deletion logic for booking protection
+- (+) Add id generation to not to overlap existing bookings
 - (+) Introduce Swagger and generate docs
-- Loose coupling checks and design
 - (+) Scheduling policy class for checking timings
-- Docker container for backend
-- Create specific exception types
 - (+) Test coverage check
 - (+) Pre-commit that checks test passing and coverage before pushing to main
+- Loose coupling checks and design
+- Docker container for backend
+- Create specific exception types
 - Readme about how to use all the tools of the repo

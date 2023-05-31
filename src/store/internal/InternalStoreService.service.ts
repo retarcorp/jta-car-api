@@ -1,4 +1,27 @@
 import { Injectable } from "@nestjs/common";
+import StoreService from "../store.service";
+
+@Injectable()
+export class InternalStoreService extends StoreService {
+    
+    private store: SharedStore = null;
+    constructor() {
+        super();
+        this.store = SharedStore.getInstance();
+    }
+
+    getState(): any {
+        return JSON.parse(JSON.stringify({...this.store.state}));
+    }
+
+    async mutate(mutator: (oldState: any) => any) {
+        this.store.state = await mutator(this.getState());
+    }
+
+    restoreDefaultState() {
+        this.store.flushState();
+    }
+}
 
 class SharedStore {
     public state: any;
@@ -22,26 +45,5 @@ class SharedStore {
             SharedStore.self = new SharedStore();
         }
         return SharedStore.self;
-    }
-}
-
-@Injectable()
-export default class StateService {
-    
-    private store: SharedStore = null;
-    constructor() {
-        this.store = SharedStore.getInstance();
-    }
-
-    getState(): any {
-        return JSON.parse(JSON.stringify({...this.store.state}));
-    }
-
-    async mutate(mutator: (oldState: any) => any) {
-        this.store.state = await mutator(this.getState());
-    }
-
-    restoreDefaultState() {
-        this.store.flushState();
     }
 }
